@@ -6,6 +6,13 @@ class complex_number {
 	T real, imag;
 
 public:
+
+	explicit complex_number(T num)
+	{
+		real = num, imag = 0;
+		std::cout << "Convertito in numero complesso dal convertitore \n";
+	}
+	
 	complex_number()   // costruttore di default
 		: real(0), imag(0)
 	{}
@@ -71,13 +78,20 @@ public:
 // Overload dell'operatore <<
 template<typename T>
 std::ostream& 
-operator<<(std::ostream& os, const complex_number<T>& num) {
-	os << num.Re();	
+operator<<(std::ostream& os, const complex_number<T>& num) {	
 	
-	if (num.Im() >= 0)
-		os << "+" << num.Im() << "i";
-	else
+	if (num.Re() == 0 && num.Im() == 0)
+		os << 0 << "\n";
+	else if (num.Re() == 0 && num.Im() > 0)
 		os << num.Im() << "i";
+	else if (num.Re() == 0 && num.Im() < 0)
+		os << num.Im() << "i";
+	else if (num.Re() != 0 && num.Im() == 0)
+		os << num.Re();
+	else if (num.Re() != 0 && num.Im() > 0)
+		os << num.Re() << "+" << num.Im() << "i";
+	else
+		os << num.Re() << num.Im() << "i";
 	return os;
 }
 
@@ -98,5 +112,4 @@ operator*(const T& z1, const complex_number<T>& z2)
 {
 	return z2 * z1;
 }
-
 
